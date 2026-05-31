@@ -1,0 +1,7 @@
+.env
+server.out.log
+server.err.log
+workspaces/
+node_modules/
+.DS_Store
+Thumbs.db

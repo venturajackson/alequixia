@@ -1,0 +1,17 @@
+{
+  "dynamicRules": [
+    "Priorize respostas acionaveis.",
+    "Quando uma tarefa envolver arquivos, memoria ou integracoes, informe o que foi feito."
+  ],
+  "commandBlocklist": [
+    "rm -rf",
+    "del /s",
+    "format",
+    "shutdown",
+    "reboot",
+    "diskpart",
+    "Remove-Item -Recurse",
+    "git reset --hard"
+  ],
+  "heartbeatMinutes": 30
+}

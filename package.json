@@ -1,0 +1,15 @@
+{
+  "name": "alequixia",
+  "version": "0.1.0",
+  "description": "Assistente pessoal modular estilo Jarvis, com memoria, skills, seguranca e dashboard local.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "node --watch src/main.js",
+    "check": "node --check src/main.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

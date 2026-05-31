@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alequixia</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="mark">A</div>
+          <div>
+            <p>Alequixia</p>
+            <span>Assistente operacional</span>
+          </div>
+        </div>
+
+        <section class="module hero">
+          <div class="pulse"></div>
+          <div>
+            <h1>Online</h1>
+            <p>Memoria, skills e painel local ativos.</p>
+          </div>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <h2>Status</h2>
+            <span id="providerBadge">...</span>
+          </div>
+          <div id="status" class="status-grid">Carregando...</div>
+        </section>
+
+        <section class="module events-module">
+          <div class="module-head">
+            <h2>Eventos</h2>
+            <span>tempo real</span>
+          </div>
+          <div id="events" class="events"></div>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Console</p>
+            <h1>Fale com a Alequixia</h1>
+          </div>
+          <div class="chips">
+            <span>Memoria</span>
+            <span>Skills</span>
+            <span>Scheduler</span>
+          </div>
+        </header>
+
+        <div id="messages" class="messages" aria-live="polite"></div>
+
+        <form id="form" class="composer">
+          <input id="input" autocomplete="off" placeholder="Digite uma tarefa, pergunta ou comando..." />
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
