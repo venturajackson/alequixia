@@ -4,6 +4,7 @@ const messagesEl = document.querySelector("#messages");
 const form = document.querySelector("#form");
 const input = document.querySelector("#input");
 const providerBadge = document.querySelector("#providerBadge");
+const quickActions = document.querySelectorAll("[data-prompt]");
 const apiAvailable = location.hostname === "localhost" || location.hostname === "127.0.0.1";
 
 refreshStatus();
@@ -17,9 +18,18 @@ append(
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const message = input.value.trim();
-  if (!message) return;
+  await sendMessage(input.value.trim());
   input.value = "";
+});
+
+for (const button of quickActions) {
+  button.addEventListener("click", async () => {
+    await sendMessage(button.dataset.prompt || "");
+  });
+}
+
+async function sendMessage(message) {
+  if (!message) return;
   append("user", message);
   if (!apiAvailable) {
     append("assistant", "No GitHub Pages o backend Node nao fica ativo. Clone o repositorio, rode npm run start e acesse http://localhost:4000.");
@@ -33,8 +43,9 @@ form.addEventListener("submit", async (event) => {
   });
   const data = await response.json();
   waiting.textContent = data.answer || JSON.stringify(data, null, 2);
+  renderActions(data.actions || []);
   refreshStatus();
-});
+}
 
 async function refreshStatus() {
   const data = apiAvailable
@@ -82,4 +93,14 @@ function append(role, text) {
   messagesEl.append(node);
   messagesEl.scrollTop = messagesEl.scrollHeight;
   return body;
+}
+
+function renderActions(actions) {
+  if (!actions.length) return;
+  const summary = actions.map((action) => action.type).join("  |  ");
+  const node = document.createElement("div");
+  node.className = "action-trace";
+  node.textContent = `Acao executada: ${summary}`;
+  messagesEl.append(node);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
 }

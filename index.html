@@ -21,7 +21,20 @@
           <div class="pulse"></div>
           <div>
             <h1>Online</h1>
-            <p>Memoria, skills e painel local ativos.</p>
+            <p>Comandos locais, memoria, IA e automacoes no mesmo painel.</p>
+          </div>
+        </section>
+
+        <section class="module command-card">
+          <div class="module-head">
+            <h2>Acoes rapidas</h2>
+            <span>local</span>
+          </div>
+          <div class="quick-actions">
+            <button type="button" data-prompt="abrir navegador">Navegador</button>
+            <button type="button" data-prompt="abrir calculadora">Calculadora</button>
+            <button type="button" data-prompt="status do sistema">Sistema</button>
+            <button type="button" data-prompt="/memory.search alequixia">Memoria</button>
           </div>
         </section>
 
@@ -46,14 +59,32 @@
         <header class="topbar">
           <div>
             <p class="eyebrow">Console</p>
-            <h1>Fale com a Alequixia</h1>
+            <h1>Centro de comando Alequixia</h1>
           </div>
           <div class="chips">
-            <span>Memoria</span>
-            <span>Skills</span>
-            <span>Scheduler</span>
+            <span>IA local</span>
+            <span>Acoes</span>
+            <span>Tempo real</span>
           </div>
         </header>
+
+        <section class="capabilities" aria-label="Capacidades">
+          <article>
+            <span>01</span>
+            <strong>Abrir aplicativos</strong>
+            <p>Calculadora, navegador, arquivos e apps permitidos.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <strong>Navegar na web</strong>
+            <p>Abra URLs e sites por comando natural.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <strong>Responder perguntas</strong>
+            <p>Modelo local via Ollama com memoria do workspace.</p>
+          </article>
+        </section>
 
         <div id="messages" class="messages" aria-live="polite"></div>
 
