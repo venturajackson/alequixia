@@ -12,8 +12,8 @@ if (apiAvailable) connectEvents();
 append(
   "assistant",
   apiAvailable
-    ? "Estou pronta. Pode me pedir uma tarefa ou usar comandos como /memory.remember."
-    : "Este e o painel publico da Alequixia. Para conversar com a IA, rode o projeto localmente com npm run start."
+    ? "Estou pronta. Peça uma tarefa, pergunta ou acao local."
+    : "Painel publico da Alequixia. Para usar a IA e acoes locais, rode npm run start."
 );
 
 form.addEventListener("submit", async (event) => {
@@ -60,7 +60,6 @@ async function refreshStatus() {
   statusEl.innerHTML = "";
   const rows = [
     ["Workspace", data.workspaceId],
-    ["Provider", data.provider],
     ["Skills", String(data.skills.length)],
     ["Regras", String(data.dynamicRules.length)]
   ];
