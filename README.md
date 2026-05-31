@@ -36,6 +36,18 @@ funciona localmente, porque depende do servidor Node em `/api/chat`.
 /memory.remember O usuario prefere respostas objetivas.
 /memory.search respostas objetivas
 /memory.forget respostas objetivas
+/open.url https://example.com
+/open.app calculadora
+/system.info
+```
+
+Tambem ha roteamento em linguagem natural para acoes locais:
+
+```text
+abra o site github.com
+abrir calculadora
+abrir navegador
+status do sistema
 ```
 
 ## Ativar modelo

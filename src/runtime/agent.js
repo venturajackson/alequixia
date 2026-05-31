@@ -36,6 +36,9 @@ export class Agent {
     const direct = await this.tryDirectSkill(message, context);
     if (direct) return direct;
 
+    const routed = await this.tryNaturalSkill(message, context);
+    if (routed) return routed;
+
     const memories = (await this.memory.search(message, 8))
       .filter((item) => !(item.source === "history" && item.text.startsWith("assistant:")))
       .slice(0, 5);
@@ -53,6 +56,14 @@ export class Agent {
     if (!match) return null;
     const [, name, rawArgs] = match;
     const result = await this.runSkill(name, { text: rawArgs, context });
+    await this.memory.appendHistory({ role: "assistant", content: result.answer || JSON.stringify(result), context });
+    return result;
+  }
+
+  async tryNaturalSkill(message, context) {
+    const intent = routeIntent(message);
+    if (!intent) return null;
+    const result = await this.runSkill(intent.name, { ...intent.args, context });
     await this.memory.appendHistory({ role: "assistant", content: result.answer || JSON.stringify(result), context });
     return result;
   }
@@ -79,6 +90,50 @@ export class Agent {
       message
     ].join("\n");
   }
+}
+
+function routeIntent(message) {
+  const text = normalize(message);
+  const raw = String(message).trim();
+
+  const urlMatch = raw.match(/https?:\/\/[^\s]+/i);
+  if (urlMatch && /\b(abrir|abre|abra|acessar|acesse|navegar|entre)\b/.test(text)) {
+    return { name: "open.url", args: { target: urlMatch[0] } };
+  }
+
+  const siteMatch = raw
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .match(/\b(?:abrir|abre|abra|acessar|acesse|navegar|entre)\s+(?:o\s+site\s+|a\s+pagina\s+|no\s+)?([a-z0-9.-]+\.[a-z]{2,})(?:\s|$)/);
+  if (siteMatch) {
+    return { name: "open.url", args: { target: siteMatch[1] } };
+  }
+
+  if (/\b(abrir|abre|abra)\s+(navegador|browser|internet)\b/.test(text)) {
+    return { name: "open.url", args: { target: "https://www.google.com" } };
+  }
+
+  const appMatch = text.match(/\b(?:abrir|abre|abra|iniciar|execute|executar)\s+(?:o\s+|a\s+)?([a-z0-9 ._-]+)$/);
+  if (appMatch) {
+    return { name: "open.app", args: { app: appMatch[1].trim() } };
+  }
+
+  if (/\b(status|diagnostico|diagnostico do sistema|informacoes do sistema)\b/.test(text)) {
+    return { name: "system.info", args: {} };
+  }
+
+  return null;
+}
+
+function normalize(value) {
+  return String(value)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[?!.,;:]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function redact(value) {

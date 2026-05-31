@@ -10,6 +10,7 @@ import { SecretStore } from "./runtime/secret-store.js";
 import { Scheduler } from "./runtime/scheduler.js";
 import { createProvider } from "./runtime/providers.js";
 import { createCoreSkills } from "./skills/core.js";
+import { createLocalActionSkills } from "./skills/local-actions.js";
 import { createShellSkill } from "./skills/shell.js";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -40,6 +41,7 @@ const agent = new Agent({
 });
 
 agent.registerSkills(createCoreSkills(agent));
+agent.registerSkills(createLocalActionSkills({ events, workspaceRoot }));
 agent.registerSkills([createShellSkill({ rules, workspaceRoot, allowShell: env.ALLOW_SHELL === "true" })]);
 
 const scheduler = new Scheduler({ events, rules, agent });
