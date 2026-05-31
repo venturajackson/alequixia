@@ -7,84 +7,33 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <main class="shell">
-      <aside class="sidebar">
+    <main class="console">
+      <section class="assistant-card">
         <div class="brand">
-          <div class="mark">A</div>
+          <div class="orb"><span>A</span></div>
           <div>
             <p>Alequixia</p>
-            <span>Assistente operacional</span>
+            <span>Assistente inteligente local</span>
           </div>
+          <strong id="providerBadge">...</strong>
         </div>
 
-        <section class="module hero">
-          <div class="pulse"></div>
+        <header class="hero">
           <div>
-            <h1>Online</h1>
-            <p>Comandos locais, memoria, IA e automacoes no mesmo painel.</p>
-          </div>
-        </section>
-
-        <section class="module command-card">
-          <div class="module-head">
-            <h2>Acoes rapidas</h2>
-            <span>local</span>
-          </div>
-          <div class="quick-actions">
-            <button type="button" data-prompt="abrir navegador">Navegador</button>
-            <button type="button" data-prompt="abrir calculadora">Calculadora</button>
-            <button type="button" data-prompt="status do sistema">Sistema</button>
-            <button type="button" data-prompt="/memory.search alequixia">Memoria</button>
-          </div>
-        </section>
-
-        <section class="module">
-          <div class="module-head">
-            <h2>Status</h2>
-            <span id="providerBadge">...</span>
-          </div>
-          <div id="status" class="status-grid">Carregando...</div>
-        </section>
-
-        <section class="module events-module">
-          <div class="module-head">
-            <h2>Eventos</h2>
-            <span>tempo real</span>
-          </div>
-          <div id="events" class="events"></div>
-        </section>
-      </aside>
-
-      <section class="workspace">
-        <header class="topbar">
-          <div>
-            <p class="eyebrow">Console</p>
-            <h1>Centro de comando Alequixia</h1>
-          </div>
-          <div class="chips">
-            <span>IA local</span>
-            <span>Acoes</span>
-            <span>Tempo real</span>
+            <p class="eyebrow">Centro de comando</p>
+            <h1>Como posso ajudar?</h1>
+            <span>Peça respostas, abra aplicativos, navegue em sites e consulte o sistema.</span>
           </div>
         </header>
 
-        <section class="capabilities" aria-label="Capacidades">
-          <article>
-            <span>01</span>
-            <strong>Abrir aplicativos</strong>
-            <p>Calculadora, navegador, arquivos e apps permitidos.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <strong>Navegar na web</strong>
-            <p>Abra URLs e sites por comando natural.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <strong>Responder perguntas</strong>
-            <p>Modelo local via Ollama com memoria do workspace.</p>
-          </article>
-        </section>
+        <div class="quick-actions" aria-label="Acoes rapidas">
+          <button type="button" data-prompt="abrir navegador">Navegador</button>
+          <button type="button" data-prompt="abrir calculadora">Calculadora</button>
+          <button type="button" data-prompt="status do sistema">Sistema</button>
+          <button type="button" data-prompt="/memory.search alequixia">Memoria</button>
+        </div>
+
+        <div id="status" class="status-strip">Carregando...</div>
 
         <div id="messages" class="messages" aria-live="polite"></div>
 
@@ -92,6 +41,8 @@
           <input id="input" autocomplete="off" placeholder="Digite uma tarefa, pergunta ou comando..." />
           <button type="submit">Enviar</button>
         </form>
+
+        <div id="events" class="events"></div>
       </section>
     </main>
     <script src="/app.js"></script>
